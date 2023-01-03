@@ -1,0 +1,68 @@
+.header {
+    margin: 0;
+    height: 80px;
+    border-bottom: 1px solid rgb(106, 105, 105);
+    background: #007bff;
+  }
+  .title {
+    font-size: 50px;
+    padding-top: 10px;
+    color: rgb(223, 218, 218);
+  }
+  .logout-btn {
+    width: 100%;
+    max-width: 100px;
+    height: 40px;
+    top: 20px;
+    right: 200px;
+    position: absolute;
+  }
+  .Btn {
+    background: none;
+  }
+  .tbl-content {
+    max-width: 1000px;
+    display: flex;
+    margin: auto;
+    padding-top: 50px;
+    
+  }
+  table {
+    display: grid;
+    min-width: 100%;
+    grid-template-columns: 
+      minmax(150px, 1fr)
+      minmax(150px, 1.67fr)
+      minmax(150px, 1.67fr)
+      minmax(150px, 1.67fr)
+  }
+  thead,
+  tbody,
+  tr {
+    display: contents;
+    text-align: center;
+  } 
+  th,
+  td {
+    padding: 15px;
+  }
+  th {
+    position: sticky;
+    top: 0;
+    background: #8387a5;
+    text-align: center;
+    font-weight: normal;
+    font-size: 1.1rem;
+    color: white;
+  }
+  th:last-child {
+    border: 0;
+  }
+  td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: black;
+  }
+  tr:nth-child(even) td {
+    background: #f7f7f7;
+  }

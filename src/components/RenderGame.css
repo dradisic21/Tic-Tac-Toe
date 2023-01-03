@@ -1,0 +1,32 @@
+.tic-tac-toe-game {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+.game {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
+    max-width: 300px;   
+}
+.square {
+    border: 1px solid rgb(138, 138, 138);
+    min-width: 100px;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    cursor: pointer;
+}
+.square:hover {
+    background-color: rgb(227, 224, 224);
+  }
+  .btn {
+    width: 150px;
+    border-radius: 10px;
+  }
