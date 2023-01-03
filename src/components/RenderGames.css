@@ -1,13 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Play&display=swap");
 
-.wrapper {
-  width: 1920px;
-}
 .header {
   margin: 0;
   height: 80px;
   border-bottom: 1px solid rgb(106, 105, 105);
-  background:#007bff;
+  background: #007bff;
 }
 .title {
   font-size: 50px;
@@ -29,7 +26,7 @@
 .Btn:hover {
   color: #747678;
 }
-.tic-tac-toe-games{
+.tic-tac-toe-games {
   padding: 0;
   margin: 0;
 }
@@ -55,23 +52,23 @@ ul li {
   display: flex;
   margin: auto;
   padding-top: 50px;
-  
 }
 table {
   display: grid;
   min-width: 100%;
-  grid-template-columns: 
+  grid-template-columns:
     minmax(150px, 1fr)
     minmax(150px, 1.67fr)
     minmax(150px, 1.67fr)
-    minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr);
 }
 thead,
 tbody,
 tr {
   display: contents;
   text-align: center;
-} 
+  cursor: pointer;
+}
 th,
 td {
   padding: 15px;
@@ -95,12 +92,76 @@ td {
 tr:nth-child(even) td {
   background: #f7f7f7;
 }
-@media screen and (max-width: 800px) {
-  .header {
+@media screen and (max-width: 1100px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+    
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
     position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .table {
+    padding: 0 20px 0 20px;
+  }
+  td:nth-of-type(1):before {
+    content: "#";
+  }
+  td:nth-of-type(2):before {
+    content: "First Player" !important;
+  }
+  td:nth-of-type(3):before {
+    content: "Second Player" !important;
+  }
+  td:nth-of-type(4):before {
+    content: "Winner" !important;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    display: flex;
     height: 150px;
     display: block;
-    align-content: space-between;
     margin: 0 10px 0 10px;
+  }
+  .logout-btn {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    max-width: 100px;
+    top: 80px;
+  }
+  .btn-ranking {
+    display: flex;
+    position: relative;
+    
   }
 }

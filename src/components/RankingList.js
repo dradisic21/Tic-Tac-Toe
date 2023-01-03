@@ -88,8 +88,8 @@ function RankingList() {
           </Button>
         </div>
       </div>
-      <div className="tbl-content">
-        <table className="table table-striped table-secondary">
+      <div className="tbl-content table-responsive-sm">
+        <table className="table table-secondary table-hover">
           <thead className="table-dark">
             <tr>
               <th scope="col">#</th>

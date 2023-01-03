@@ -97,7 +97,7 @@ const RenderGames = () => {
           </Link>
         </div>
         <div className="tbl-content">
-          <table className="table table-secondary">
+          <table className="table table-secondary table-hover">
             <thead className="table-primary">
               <tr>
                 <th scope="col">#</th>

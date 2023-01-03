@@ -1,3 +1,23 @@
+## technologies used by the application
+
+1. React
+2. React Router
+3. Axios
+4. Yup validator
+5. Bootstrap
+
+
+## version of node and npm with which the application is launched
+
+NPM version 8.15.0
+NODE version 16.17.0
+
+## Setup and start application in terminal 
+download or clone the repository
+run npm install
+npm start
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +88,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## must be installed to run the application
+
+1. React
+2. React Router
+3. Axios
+4. Yup validator
+5. Bootstrap

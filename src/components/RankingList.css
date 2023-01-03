@@ -1,68 +1,136 @@
 .header {
-    margin: 0;
-    height: 80px;
-    border-bottom: 1px solid rgb(106, 105, 105);
-    background: #007bff;
-  }
-  .title {
-    font-size: 50px;
-    padding-top: 10px;
-    color: rgb(223, 218, 218);
-  }
-  .logout-btn {
-    width: 100%;
-    max-width: 100px;
-    height: 40px;
-    top: 20px;
-    right: 200px;
-    position: absolute;
-  }
-  .Btn {
-    background: none;
-  }
-  .tbl-content {
-    max-width: 1000px;
-    display: flex;
-    margin: auto;
-    padding-top: 50px;
-    
-  }
-  table {
-    display: grid;
-    min-width: 100%;
-    grid-template-columns: 
-      minmax(150px, 1fr)
-      minmax(150px, 1.67fr)
-      minmax(150px, 1.67fr)
-      minmax(150px, 1.67fr)
-  }
+  margin: 0;
+  height: 80px;
+  border-bottom: 1px solid rgb(106, 105, 105);
+  background: #007bff;
+}
+.title {
+  font-size: 50px;
+  padding-top: 10px;
+  color: rgb(223, 218, 218);
+}
+.logout-btn {
+  width: 100%;
+  max-width: 100px;
+  height: 40px;
+  top: 20px;
+  right: 200px;
+  position: absolute;
+}
+.Btn {
+  background: white !important;
+  color: #007bff;
+}
+.Btn:hover {
+  color: #747678;
+}
+.tbl-content {
+  max-width: 1000px;
+  display: flex;
+  margin: auto;
+  padding-top: 50px;
+}
+table {
+  display: grid;
+  min-width: 100%;
+  grid-template-columns:
+    minmax(150px, 1fr)
+    minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr);
+}
+thead,
+tbody,
+tr {
+  display: contents;
+  text-align: center;
+  cursor: pointer;
+}
+th,
+td {
+  padding: 15px;
+}
+th {
+  top: 0;
+  background: #8387a5;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.1rem;
+  color: white;
+}
+th:last-child {
+  border: 0;
+}
+td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: black;
+}
+tr:nth-child(even) td {
+  background: #f7f7f7;
+}
+@media screen and (max-width: 1100px) {
+  table,
   thead,
   tbody,
-  tr {
-    display: contents;
-    text-align: center;
-  } 
   th,
-  td {
-    padding: 15px;
+  td,
+  tr {
+    display: block;
   }
-  th {
-    position: sticky;
-    top: 0;
-    background: #8387a5;
-    text-align: center;
-    font-weight: normal;
-    font-size: 1.1rem;
-    color: white;
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
   }
-  th:last-child {
-    border: 0;
+  tr {
+    border: 1px solid #ccc;
   }
   td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: black;
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
   }
-  tr:nth-child(even) td {
-    background: #f7f7f7;
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
   }
+  .table {
+    padding: 0 20px 0 20px;
+  }
+  td:nth-of-type(1n):before {
+    content: "#";
+  }
+  td:nth-of-type(2):before {
+    content: "User";
+  }
+  td:nth-of-type(3):before {
+    content: "Played Game";
+  }
+  td:nth-of-type(4):before {
+    content: "Winner Rate";
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .header {
+    display: flex;
+    height: 150px;
+    display: block;
+    margin: 0 10px 0 10px;
+  }
+  .logout-btn {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    max-width: 100px;
+    top: 80px;
+  }
+}
