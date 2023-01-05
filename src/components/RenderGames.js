@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { getGames } from "../Api";
+import NewGame from "../newgame/NewGame";
 import "./RenderGames.css";
 
 const RenderGames = () => {
@@ -97,13 +98,14 @@ const RenderGames = () => {
           </Link>
         </div>
         <div className="tbl-content">
-          <table className="table table-secondary table-hover">
+          <table className="table1 table-secondary table-hover w-auto">
             <thead className="table-primary">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">First Player</th>
                 <th scope="col">Second Player</th>
                 <th scope="col">Winner</th>
+                <th scope="col">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -115,13 +117,14 @@ const RenderGames = () => {
                       <td>{game.first_player?.username}</td>
                       <td>{game.second_player?.username}</td>
                       <td>{game.winner?.username}</td>
+                      <td>{game.status}</td>
                     </tr>
                   );
                 })}
             </tbody>
           </table>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center pt-5">
         <Pagination
           {...paginationAttributes}
           onPrevClick={onPrevClick}
@@ -129,6 +132,7 @@ const RenderGames = () => {
           onPageChange={onPageChange}
         />
       </div>
+      <NewGame />
       </div>
     </div>
   );

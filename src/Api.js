@@ -43,14 +43,14 @@ export async function login(username, password) {
   //console.log(response);
   //const data = await response.json();
   //console.log(response);
-  localStorage.setItem("userToken", response.data.token);
-  localStorage.setItem("user", JSON.stringify(response.data));
+  localStorage.setItem("userToken", response.data.token);    // prvo trebao userToken pa sam kasnije vidio da mi treba user -> nisam pocistio kod
+  localStorage.setItem("user", JSON.stringify(response.data)); //sve se tu na kraju sprema (token, username, id )
   return response;
 }
 export async function getGames(limit, currentPage) {
   const params = {limit: limit, offset: (currentPage -1) * limit}
   const requestOptions = {
-    method: "GET",
+    method: "GET",  //visak jer sam prvo koristio fetch pa sam kasnije koristio axios
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + localStorage.getItem("userToken"),
@@ -92,4 +92,22 @@ export async function getGame(id) {
     `https://tictactoe.aboutdream.io/games/${id}`,
     requestOptions
   );
-}
+  }
+
+  export async function createNewGame() {
+    const requestOptions = {
+      headers: { "Content-Type": "application/json", Authorization: "Bearer " + localStorage.getItem("userToken")}
+    };
+    const response = await axios
+      .post("https://tictactoe.aboutdream.io/games/", 
+       null, requestOptions)
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+        throw error;
+      });
+    return response;
+  };

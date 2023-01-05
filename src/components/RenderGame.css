@@ -14,7 +14,7 @@
     max-width: 300px;   
 }
 .square {
-    border: 1px solid rgb(138, 138, 138);
+    border: 1px solid rgb(123, 123, 123);
     min-width: 100px;
     min-height: 100px;
     display: flex;
@@ -29,4 +29,9 @@
   .btn {
     width: 150px;
     border-radius: 10px;
+  }
+  .players {
+   position: absolute;
+   top: 200px;
+   left: 100px;
   }

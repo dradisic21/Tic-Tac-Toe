@@ -84,7 +84,7 @@ function RegistrationForm() {
       })
       .catch((axiosError) => {
         //console.log(axiosError);
-        axiosError.response.data.errors.map((error) =>
+        axiosError.response.data.errors.map((error) =>    //iterirapo listi errora i kreira novi toast 
           addToast({ id: Math.random(), Component: ErrorToast, error: error })
         );
       });

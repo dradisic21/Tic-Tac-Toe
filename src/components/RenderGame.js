@@ -17,8 +17,8 @@ const RenderGame = () => {
       row.map((cell) => {
         if (game.first_player.id === cell) {
           return <div className="square text-primary">X</div>;
-        } else if (game.second_player.id === cell) {
-          return <div className="square">O</div>;
+        } else if (game.second_player?.id === cell) {
+          return <div className="square text-danger">O</div>;
         } else {
           return <div className="square"></div>;
         }
@@ -42,7 +42,6 @@ const RenderGame = () => {
     fetchGame(state.gameId);
   }, []);
 
-
   return (
     <div className="wrapper">
       <div className="game_list">
@@ -53,16 +52,30 @@ const RenderGame = () => {
         </div>
 
         <div>
+          <div className="players">
+            <h3 className="d-flex">
+              <u>FIRST PLAYER:</u>
+              <p className="px-5">{game.first_player?.username}</p>
+            </h3>
+            <h3 className="d-flex">
+              <u>SECOND PLAYER:</u>{" "}
+              <p className="px-3">{game.second_player?.username}</p>
+            </h3>
+            <h3 className="d-flex">
+              <u>WINNER:</u>{" "}
+              <p className="px-5 text-success">{game.winner?.username}</p>
+            </h3>
+          </div>
           <div className="tic-tac-toe-game">
             <div className="game postition-relative">
+              {/*<p>
+                {winner
+                  ? "Winner: " + winner
+                  : "Next Player: " + (xIsNext ? "X" : "O")}
+                </p>*/}
               {renderSquares(game?.board)}
             </div>
             <div className="d-flex btn-group-vertical position-absolute bottom-0 translate-middle-y">
-              <div className="pb-2">
-                <Button type="submit" className="btn btn-primary">
-                  New Game
-                </Button>
-              </div>
               <div className="pt-2">
                 <Button
                   onClick={() => navigate(-1)}

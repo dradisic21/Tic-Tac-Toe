@@ -24,7 +24,8 @@ function RankingList() {
         //console.log(response.data.results);
         setUsers(
           response.data.results.sort((a, b) => {
-            return b.win_rate - a.win_rate;
+            return b.win_rate - a.win_rate;  //sortiramo po win rate-u, kad sam dodao paginaciju ne vrati sortiranu listu 
+            
           })
         );
         setTotalPages(Math.ceil(response.data.count / pageNumberLimit));

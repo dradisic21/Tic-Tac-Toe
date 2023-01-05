@@ -4,11 +4,9 @@ import { Button } from "react-bootstrap";
 
 
 const Pagination = (props) => {
-  // init
+
   const { currentPage, maxPageLimit, minPageLimit, totalPages} = props;
 
-  
-    // build page numbers list based on total number of pages
     const pages = [];
     for(let i=1 ; i<=totalPages; i++){
         pages.push(i);
@@ -42,7 +40,6 @@ const Pagination = (props) => {
    
  );
 
-    // page ellipses
     let pageIncrementEllipses = null;
     if(pages.length > maxPageLimit){
         pageIncrementEllipses = <li onClick={handleNextClick}>&hellip;</li>
