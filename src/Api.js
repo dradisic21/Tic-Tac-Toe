@@ -1,15 +1,15 @@
 import axios from "axios";
 
-
-
 export async function registers(username, password) {
   const requestOptions = {
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json" },
   };
   const response = await axios
-    .post("https://tictactoe.aboutdream.io/register/", 
-    JSON.stringify({ username, password }),
-    requestOptions)
+    .post(
+      "https://tictactoe.aboutdream.io/register/",
+      JSON.stringify({ username, password }),
+      requestOptions
+    )
     .catch(function (error) {
       if (error.response) {
         console.log(error.response.data);
@@ -43,19 +43,28 @@ export async function login(username, password) {
   //console.log(response);
   //const data = await response.json();
   //console.log(response);
-  localStorage.setItem("userToken", response.data.token);    // prvo trebao userToken pa sam kasnije vidio da mi treba user -> nisam pocistio kod
-  localStorage.setItem("user", JSON.stringify(response.data)); //sve se tu na kraju sprema (token, username, id )
+  localStorage.setItem("userToken", response.data.token); 
+  localStorage.setItem("user", JSON.stringify(response.data)); 
   return response;
 }
-export async function getGames(limit, currentPage) {
-  const params = {limit: limit, offset: (currentPage -1) * limit}
+export async function getGames(limit, currentPage, status) {
+  
+  const params = {
+    limit: limit,
+    offset: (currentPage - 1) * limit,
+    status: "all",
+    status: "open",
+    status: "progress",
+    status: "finished",
+  };
+
   const requestOptions = {
-    method: "GET",  //visak jer sam prvo koristio fetch pa sam kasnije koristio axios
+    method: "GET", 
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + localStorage.getItem("userToken"),
     },
-    params: params
+    params: params,
   };
   return axios.get("https://tictactoe.aboutdream.io/games/", requestOptions);
   // fetch('https://tictactoe.aboutdream.io/games/', requestOptions)
@@ -63,19 +72,17 @@ export async function getGames(limit, currentPage) {
   //     .then(data => console.log(data));
 }
 
-
 export async function getUsers(limit, currentPage) {
-  const params = {limit: limit, offset: (currentPage -1) * limit}
+  const params = { limit: limit, offset: (currentPage - 1) * limit };
   const requestOptions = {
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + localStorage.getItem("userToken"),
     },
-    params: params
+    params: params,
   };
   return axios.get("https://tictactoe.aboutdream.io/users/", requestOptions);
 }
-
 
 export async function getGame(id) {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -86,28 +93,29 @@ export async function getGame(id) {
       "Content-Type": "application/json",
       Authorization: "Bearer " + userToken,
     },
-
   };
   return axios.get(
     `https://tictactoe.aboutdream.io/games/${id}`,
     requestOptions
   );
-  }
+}
 
-  export async function createNewGame() {
-    const requestOptions = {
-      headers: { "Content-Type": "application/json", Authorization: "Bearer " + localStorage.getItem("userToken")}
-    };
-    const response = await axios
-      .post("https://tictactoe.aboutdream.io/games/", 
-       null, requestOptions)
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-        throw error;
-      });
-    return response;
+export async function createNewGame() {
+  const requestOptions = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("userToken"),
+    },
   };
+  const response = await axios
+    .post("https://tictactoe.aboutdream.io/games/", null, requestOptions)
+    .catch(function (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      }
+      throw error;
+    });
+  return response;
+}

@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { getGames } from "../Api";
 import NewGame from "../newgame/NewGame";
+import FilterStatus from "./filterstatus/FilterStatus";
 import "./RenderGames.css";
 
 const RenderGames = () => {
   const [games, setGames] = useState([]);
+  const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,6 +26,7 @@ const RenderGames = () => {
       try {
         const response = await getGames(pageNumberLimit, currentPage);
         setGames(response.data.results);
+        setStatus(response.data.status);
         setTotalPages(Math.ceil(response.data.count / pageNumberLimit));
         setError(null);
       } catch (err) {
@@ -70,7 +73,7 @@ const RenderGames = () => {
     currentPage,
     maxPageLimit,
     minPageLimit,
-    totalPages
+    totalPages,
   };
 
   return (
@@ -96,6 +99,9 @@ const RenderGames = () => {
           <Link to="/rankinglist">
             <Button>Ranking List</Button>
           </Link>
+        </div>
+        <div className="d-flex">
+          <FilterStatus />
         </div>
         <div className="tbl-content">
           <table className="table1 table-secondary table-hover w-auto">
@@ -125,14 +131,14 @@ const RenderGames = () => {
           </table>
         </div>
         <div className="d-flex justify-content-center pt-5">
-        <Pagination
-          {...paginationAttributes}
-          onPrevClick={onPrevClick}
-          onNextClick={onNextClick}
-          onPageChange={onPageChange}
-        />
-      </div>
-      <NewGame />
+          <Pagination
+            {...paginationAttributes}
+            onPrevClick={onPrevClick}
+            onNextClick={onNextClick}
+            onPageChange={onPageChange}
+          />
+        </div>
+        <NewGame />
       </div>
     </div>
   );
