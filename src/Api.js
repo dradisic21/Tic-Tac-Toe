@@ -48,15 +48,14 @@ export async function login(username, password) {
   return response;
 }
 export async function getGames(limit, currentPage, status) {
-  
+
   const params = {
     limit: limit,
     offset: (currentPage - 1) * limit,
-    status: "all",
-    status: "open",
-    status: "progress",
-    status: "finished",
   };
+  if(status !== 'all') {
+    params.status = status;
+  }
 
   const requestOptions = {
     method: "GET", 

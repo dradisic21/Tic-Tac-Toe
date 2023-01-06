@@ -24,9 +24,8 @@ const RenderGames = () => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await getGames(pageNumberLimit, currentPage);
+        const response = await getGames(pageNumberLimit, currentPage, status);
         setGames(response.data.results);
-        setStatus(response.data.status);
         setTotalPages(Math.ceil(response.data.count / pageNumberLimit));
         setError(null);
       } catch (err) {
@@ -38,8 +37,12 @@ const RenderGames = () => {
       }
     };
     fetchGames();
-  }, [currentPage]);
+  }, [currentPage, status]);
 
+  const onStatusFilter = (e) => {
+    setStatus(e.target.value);
+    setCurrentPage(1);
+  }
   const handleLogout = (e) => {
     localStorage.clear("userToken");
     navigate("/");
@@ -75,6 +78,11 @@ const RenderGames = () => {
     minPageLimit,
     totalPages,
   };
+  const statusClassName = {
+    open: 'status-green',
+    progress: 'status-yellow',
+    finished: 'status-red'
+  }
 
   return (
     <div className="wrapper">
@@ -101,7 +109,7 @@ const RenderGames = () => {
           </Link>
         </div>
         <div className="d-flex">
-          <FilterStatus />
+          <FilterStatus callback={onStatusFilter}/>
         </div>
         <div className="tbl-content">
           <table className="table1 table-secondary table-hover w-auto">
@@ -112,6 +120,7 @@ const RenderGames = () => {
                 <th scope="col">Second Player</th>
                 <th scope="col">Winner</th>
                 <th scope="col">Status</th>
+                <th scope="col">Created</th>
               </tr>
             </thead>
             <tbody>
@@ -123,7 +132,8 @@ const RenderGames = () => {
                       <td>{game.first_player?.username}</td>
                       <td>{game.second_player?.username}</td>
                       <td>{game.winner?.username}</td>
-                      <td>{game.status}</td>
+                      <td className={statusClassName[game.status]}>{game.status}</td>
+                      <td>{game.created}</td>
                     </tr>
                   );
                 })}

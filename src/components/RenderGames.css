@@ -61,6 +61,7 @@ ul li {
     minmax(150px, 1.67fr)
     minmax(150px, 1.67fr)
     minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr)
     minmax(150px, 1.67fr);
     border-bottom-width: 1px;
 }
@@ -93,6 +94,16 @@ th:last-child {
 .table1, tr:nth-child(even) td {
   background-color: var(--bs-table-bg);
 }
+.status-green {
+  color: green;
+}
+.status-yellow {
+  color: yellow;
+}
+.status-red {
+  color: red;
+}
+
 @media screen and (max-width: 1100px) {
   table,
   thead,
