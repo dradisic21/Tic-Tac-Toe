@@ -109,7 +109,7 @@ const RenderGames = () => {
           </Link>
         </div>
         <div className="d-flex">
-          <FilterStatus callback={onStatusFilter}/>
+         <FilterStatus callback={onStatusFilter} />  
         </div>
         <div className="tbl-content">
           <table className="table1 table-secondary table-hover w-auto">
