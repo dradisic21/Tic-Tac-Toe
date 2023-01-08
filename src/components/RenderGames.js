@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { getGames } from "../Api";
+import { joinGame } from "../Api";
+import moment from "moment";
 import NewGame from "../newgame/NewGame";
 import FilterStatus from "./filterstatus/FilterStatus";
 import "./RenderGames.css";
 
 const RenderGames = () => {
   const [games, setGames] = useState([]);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +22,7 @@ const RenderGames = () => {
   const [totalPages, setTotalPages] = useState(0);
   const pageNumberLimit = 10;
   const navigate = useNavigate();
+  const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -33,16 +36,25 @@ const RenderGames = () => {
         setGames(null);
       } finally {
         setLoading(false);
-        console.log(games);
       }
     };
     fetchGames();
   }, [currentPage, status]);
 
+  const gameJoin = async (game) => {
+    try {
+     
+      const response = await joinGame(game.id);
+      showGame(game);
+    } catch (err) {
+    } finally {
+    }
+  };
+
   const onStatusFilter = (e) => {
     setStatus(e.target.value);
     setCurrentPage(1);
-  }
+  };
   const handleLogout = (e) => {
     localStorage.clear("userToken");
     navigate("/");
@@ -79,10 +91,22 @@ const RenderGames = () => {
     totalPages,
   };
   const statusClassName = {
-    open: 'status-green',
-    progress: 'status-yellow',
-    finished: 'status-red'
-  }
+    open: "status-green",
+    progress: "status-yellow",
+    finished: "status-red",
+  };
+  const renderActions = (game) => {
+    if (game.second_player === null && game.first_player !== loggedInUser) {
+      return (
+        <>
+          <div onClick={() => gameJoin(game)}>JOIN</div>
+          <div onClick={() => showGame(game)}>VIEW</div>
+        </>
+      );
+    }else{
+      return <div onClick={() => showGame(game)}>VIEW</div>
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -109,7 +133,7 @@ const RenderGames = () => {
           </Link>
         </div>
         <div className="d-flex">
-         <FilterStatus callback={onStatusFilter} />  
+          <FilterStatus callback={onStatusFilter} />
         </div>
         <div className="tbl-content">
           <table className="table1 table-secondary table-hover w-auto">
@@ -121,19 +145,23 @@ const RenderGames = () => {
                 <th scope="col">Winner</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
               {games &&
                 games.map((game) => {
                   return (
-                    <tr onClick={() => showGame(game)} key={game.id}>
+                    <tr key={game.id}>
                       <td>{game.id}</td>
                       <td>{game.first_player?.username}</td>
                       <td>{game.second_player?.username}</td>
                       <td>{game.winner?.username}</td>
-                      <td className={statusClassName[game.status]}>{game.status}</td>
-                      <td>{game.created}</td>
+                      <td className={statusClassName[game.status]}>
+                        {game.status}
+                      </td>
+                      <td>{moment(game.created).format("llll")}</td>
+                      <td>{renderActions(game)}</td>
                     </tr>
                   );
                 })}

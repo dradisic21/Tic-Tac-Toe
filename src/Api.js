@@ -86,7 +86,6 @@ export async function getUsers(limit, currentPage) {
 export async function getGame(id) {
   const user = JSON.parse(localStorage.getItem("user"));
   const userToken = JSON.parse(localStorage.getItem("user")).token;
-  //console.log(userToken + id);
   const requestOptions = {
     headers: {
       "Content-Type": "application/json",
@@ -118,3 +117,35 @@ export async function createNewGame() {
     });
   return response;
 }
+export async function makeGameMove(gameId, move) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userToken = user.token;
+  const requestOptions = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + userToken,
+    },
+  };
+  return axios.post(
+    `https://tictactoe.aboutdream.io/games/${gameId}/move/`,
+    JSON.stringify(move),
+    requestOptions
+  );
+}
+
+export async function joinGame(gameId) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const userToken = user.token;
+  const requestOptions = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + userToken,
+    },
+  };
+  return axios.post(
+    `https://tictactoe.aboutdream.io/games/${gameId}/join/`,
+    null,
+    requestOptions
+  );
+}
+

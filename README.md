@@ -5,7 +5,7 @@
 3. Axios
 4. Yup validator
 5. Bootstrap
-
+6. Moment for formatting date and time
 
 ## version of node and npm with which the application is launched
 

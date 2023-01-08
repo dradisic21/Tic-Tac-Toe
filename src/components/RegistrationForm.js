@@ -79,12 +79,10 @@ function RegistrationForm() {
     }
     registers(username, password)
       .then((data) => {
-        //alert("Registration Success");
         navigate("/");
       })
       .catch((axiosError) => {
-        //console.log(axiosError);
-        axiosError.response.data.errors.map((error) =>    //iterirapo listi errora i kreira novi toast 
+        axiosError.response.data.errors.map((error) =>    
           addToast({ id: Math.random(), Component: ErrorToast, error: error })
         );
       });
