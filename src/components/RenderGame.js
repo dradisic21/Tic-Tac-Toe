@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./RenderGame.css";
 import { Button } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
+import ToastMessage from "./toast/ToastMessage";
 import { getGame } from "../Api";
 import { makeGameMove } from "../Api";
 
@@ -14,6 +15,10 @@ const RenderGame = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
+
+const toastMessage = (messageKey) => {
+  return <ToastMessage key={messageKey} />
+} 
 
   const renderSquares = (board) => {
     return board?.map((row, rowIndex) =>
@@ -55,8 +60,14 @@ const RenderGame = () => {
     );
   };
   const squareClickHandler = (e) => {
+    if(game.second_player === null) {
+      alert("Second player didn't join the game");
+      //toastMessage("noSecondPlayer");
+      return false;
+    }
     if (!isPlayerTurn(game)) {
       alert("Not your turn to play");
+      //toastMessage("allreadyPlayed");
       return false;
     }
 
@@ -64,7 +75,8 @@ const RenderGame = () => {
     const row = square.getAttribute("row");
     const col = square.getAttribute("col");
     if (game.board[row][col] !== null) {
-      alert("cell already played");
+      alert("Cell already played")
+      //toastMessage("allreadyPlayed");
       return false;
     }
     const move = { row: row, col: col };
@@ -83,10 +95,7 @@ const RenderGame = () => {
   };
 
   const isPlayerTurn = (currentGame) => {
-    if(game.second_player === null) {
-      alert("Second player didn't join the game");
-      return false;
-    }
+    
     if (
       loggedInUser.id !== currentGame.first_player.id &&
       loggedInUser.id !== currentGame.second_player.id

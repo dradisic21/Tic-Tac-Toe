@@ -48,7 +48,7 @@ ul li {
   padding-right: 190px;
 }
 .tbl-content {
-  max-width: 1000px;
+  width: 1300px;
   display: flex;
   margin: auto;
   padding-top: 50px;
@@ -75,7 +75,7 @@ tr {
 }
 th,
 td {
-  padding: 10px !important;
+  width: 100%;
 }
 th {
   top: 0;
@@ -89,7 +89,6 @@ th:last-child {
   border: 0;
 }
 .table1, td {
-
   color: black;
 }
 .table1, tr:nth-child(even) td {

@@ -21,7 +21,7 @@ function RankingList() {
     const fetchUsers = async () => {
       try {
         const response = await getUsers(pageNumberLimit, currentPage);
-        //console.log(response.data.results);
+    
         setUsers(
           response.data.results.sort((a, b) => {
             return b.win_rate - a.win_rate;  //sortiramo po win rate-u, kad sam dodao paginaciju ne vrati sortiranu listu 
@@ -35,7 +35,6 @@ function RankingList() {
         setUsers(null);
       } finally {
         setLoading(false);
-        /*console.log(users);*/
       }
     };
     fetchUsers();

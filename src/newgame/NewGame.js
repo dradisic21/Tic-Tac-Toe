@@ -15,11 +15,7 @@ const NewGame = () => {
         showGame(response.data);
       })
       .catch((axiosError) => {
-        // addToast({
-        //   id: Math.random(),
-        //   Component: ErrorToast,
-        //   error: axiosError.response.message,
-        // });
+        
       });
   };
 
