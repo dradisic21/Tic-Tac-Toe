@@ -79,14 +79,8 @@ svg {
   display: grid;
   justify-content: center;
 }
-.error-toast {
-  max-width: 300px;
-  max-height: 150px;
-  top: 0;
-  right: 100px;
+.toast-container{
+  display: flex;
+  justify-content: end;
+  top: 50px;
 }
-.toast-err {
-  background-color: #f9e1e5 !important;
-  color: #e61d3f !important;
-}
-

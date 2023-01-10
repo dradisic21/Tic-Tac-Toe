@@ -7,18 +7,18 @@ import ToastMessage from "./toast/ToastMessage";
 import { getGame } from "../Api";
 import { makeGameMove } from "../Api";
 
-const RenderGame = () => {
+const RenderGame = (props) => {
   const [game, setGame] = useState({});
   const [canPlay, setCanPlay] = useState(false);
   const [nextPlayer, setNextPlayer] = useState(null);
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(0);
   const navigate = useNavigate();
   const { state } = useLocation();
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
-const toastMessage = (messageKey) => {
-  return <ToastMessage key={messageKey} />
-} 
+  const toastMessage = (messageKey) => {
+    return <ToastMessage key={messageKey} />;
+  };
 
   const renderSquares = (board) => {
     return board?.map((row, rowIndex) =>
@@ -60,14 +60,24 @@ const toastMessage = (messageKey) => {
     );
   };
   const squareClickHandler = (e) => {
-    if(game.second_player === null) {
-      alert("Second player didn't join the game");
-      //toastMessage("noSecondPlayer");
+    if (game.second_player === null) {
+      //alert("Second player didn't join the game");
+      props.addToast({
+        id: Math.random(),
+        Component: ToastMessage,
+        message: "Second player didn't join the game",
+        type: "warn",
+      });
       return false;
     }
     if (!isPlayerTurn(game)) {
-      alert("Not your turn to play");
-      //toastMessage("allreadyPlayed");
+      //alert("Not your turn to play");
+      props.addToast({
+        id: Math.random(),
+        Component: ToastMessage,
+        message: "Not your turn to play",
+        type: "warn",
+      });
       return false;
     }
 
@@ -75,8 +85,13 @@ const toastMessage = (messageKey) => {
     const row = square.getAttribute("row");
     const col = square.getAttribute("col");
     if (game.board[row][col] !== null) {
-      alert("Cell already played")
-      //toastMessage("allreadyPlayed");
+      //alert("Cell already played")
+      props.addToast({
+        id: Math.random(),
+        Component: ToastMessage,
+        message: "Can't play this move - already played",
+        type: "warn",
+      });
       return false;
     }
     const move = { row: row, col: col };
@@ -95,7 +110,6 @@ const toastMessage = (messageKey) => {
   };
 
   const isPlayerTurn = (currentGame) => {
-    
     if (
       loggedInUser.id !== currentGame.first_player.id &&
       loggedInUser.id !== currentGame.second_player.id
@@ -127,12 +141,12 @@ const toastMessage = (messageKey) => {
     }
   };
   const switchPlayer = () => {
-    if(game.first_player === nextPlayer) {
+    if (game.first_player === nextPlayer) {
       setNextPlayer(game.second_player);
-    }else{
+    } else {
       setNextPlayer(game.first_player);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchGame = async (gameId) => {
@@ -149,10 +163,10 @@ const toastMessage = (messageKey) => {
     fetchGame(state.gameId);
     const interval = setInterval(() => {
       fetchGame(state.gameId);
-    }, 2000)
+    }, 2000);
     return () => {
-      clearInterval(interval) 
-    }
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -166,9 +180,11 @@ const toastMessage = (messageKey) => {
 
         <div>
           <div className="players">
-          <h3 className="d-flex">
+            <h3 className="d-flex">
               <u>LOGGEDIN USER:</u>
-              <p className="px-5">{JSON.parse(localStorage.getItem("user")).username}</p>
+              <p className="px-5">
+                {JSON.parse(localStorage.getItem("user")).username}
+              </p>
             </h3>
             <h3 className="d-flex">
               <u>FIRST PLAYER:</u>
@@ -176,7 +192,7 @@ const toastMessage = (messageKey) => {
             </h3>
             <h3 className="d-flex">
               <u>SECOND PLAYER:</u>{" "}
-             <p className="px-3">{game?.second_player?.username}</p>
+              <p className="px-3">{game?.second_player?.username}</p>
             </h3>
             <h3 className="d-flex">
               <u>WINNER:</u>{" "}
@@ -191,7 +207,7 @@ const toastMessage = (messageKey) => {
 
               <div className="postion-absolute d-flex justify-content-center pt-5">
                 NEXT PLAYER{" "}
-                <p className="px-3 text-success">{nextPlayer?.username }</p>
+                <p className="px-3 text-success">{nextPlayer?.username}</p>
               </div>
             </div>
             <div className="d-flex btn-group-vertical position-absolute bottom-0 translate-middle-y">

@@ -1,44 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import Toast from "react-bootstrap/Toast";
+import "./ToastMessage.css";
+import { useEffect, useState } from "react";
 
-const ToastMessage = (props) => {
-  const [showToast, setToast] = useState(false);
 
-  const { key } = props;
+const ToastMessage = ({ handleRemove, message, type }) => {
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+      setShow(true);
+    }, []);
 
-  const toastMessages = {
-    allreadyPlayed: {
-      id: Math.floor(Math.random() * 101 + 1),
-      title: "Warning",
-      description: "Not your turn to play",
-      backgroundColor: "#5cb85c",
-    },
-    notYourTurn: {
-      id: Math.floor(Math.random() * 101 + 1),
-      title: "Warning",
-      description: "Cell already played",
-      backgroundColor: "#d9534f",
-    },
-    noSecondPlayer: {
-      id: Math.floor(Math.random() * 101 + 1),
-      title: "Warning",
-      description: "Second player didn't join the game",
-      backgroundColor: "#5bc0de",
-    },
+    const TOAST_TYPE_MAP = {
+        error: {
+            header: "Error",
+            className: "error-toast"
+        },
+        warn: {
+            header: "Warning",
+            className: "warn-toast"
+        },
+        info: {
+            header: "Info",
+            className: "info-toast"
+        },
+        success: {
+          header: "Success",
+          className: "success-toast"
+      }
+    };
+    
+    return (
+      <Toast
+        className={TOAST_TYPE_MAP[type].className}
+        delay={2000}
+        autohide
+        show={show}
+        onClose={() => {
+          handleRemove();
+          setShow(false);
+        }}
+      >
+        <Toast.Header className={TOAST_TYPE_MAP[type].className}>
+          <strong className="me-auto">{TOAST_TYPE_MAP[type].header}</strong>
+        </Toast.Header>
+        <Toast.Body>{message}</Toast.Body>
+      </Toast>
+    );
   };
 
-  return (
-    <>
-      <Toast
-        onClose={() => setToast(false)}
-        autohide
-        show={showToast}
-        delay={2200}
-      >
-        <Toast.Header>{toastMessages[key].title}</Toast.Header>
-        <Toast.Body>{toastMessages[key].description}</Toast.Body>
-      </Toast>
-    </>
-  );
-};
-export default ToastMessage;
+  export default ToastMessage;

@@ -1,61 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button } from "react-bootstrap";
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
-import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import { login } from "../Api";
+import ToastMessage from "./toast/ToastMessage";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
 });
 
-const ErrorToast = ({ handleRemove, error }) => {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    setShow(true);
-  }, []);
-  return (
-    <Toast
-      className="toast-err"
-      delay={2000}
-      autohide
-      show={show}
-      onClose={() => {
-        handleRemove();
-        setShow(false);
-      }}
-    >
-      <Toast.Header className="toast-err">
-        <strong className="me-auto">Login Failed</strong>
-        <small className="text-muted">just now</small>
-      </Toast.Header>
-      <Toast.Body>{error?.message}</Toast.Body>
-    </Toast>
-  );
-};
-
-function Login() {
+const Login = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  //Toast
-  const [toasts, setToasts] = useState([]);
-  const addToast = (newToast) => {
-    console.log("New Toast", newToast);
-    setToasts((toasts) => [...toasts, newToast]);
-  };
-  const removeToast = (id) =>
-    setToasts((toasts) => toasts.filter((e) => e.id !== id));
 
   //validation
   const {
@@ -78,7 +42,7 @@ function Login() {
       })
       .catch((axiosError) => {
         axiosError.response.data.errors.map((error) =>
-          addToast({ id: Math.random(), Component: ErrorToast, error: error })
+          props.addToast({ id: Math.random(), Component: ToastMessage, message: error.message, type: "error" })
         );
       });
   };
@@ -140,19 +104,6 @@ function Login() {
           </div>
         </Form>
       </div>
-      <Container className="error-toast position-absolute p-3">
-        <ToastContainer>
-          {toasts.map(({ id, Component, error }, index) => (
-            <div className="pt-2">
-              <Component
-                key={id}
-                handleRemove={() => removeToast(id)}
-                error={error}
-              />
-            </div>
-          ))}
-        </ToastContainer>
-      </Container>
     </div>
   );
 }

@@ -1,0 +1,33 @@
+
+.error-toast {
+  background-color: #f9e1e5 !important;
+  color: #e61d3f !important;
+  max-width: 300px;
+  max-height: 150px;
+  top: 0 !important;
+  right: 100px !important;
+  
+}
+.warn-toast {
+  background-color: #ffcc00;
+  color: black;
+  max-width: 300px;
+  max-height: 150px;
+ 
+}
+
+.info-toast {
+  color: rgb(30, 30, 122);
+  max-width: 300px;
+  max-height: 150px;
+  top: 0 !important;
+  right: 100px !important;
+}
+
+.success-toast {
+  color: green;
+  max-width: 300px;
+  max-height: 150px;
+  top: 0 !important;
+  right: 100px !important;
+}
